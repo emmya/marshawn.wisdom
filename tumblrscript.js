@@ -1,4 +1,9 @@
-$(document).ready(function() {
+ //had to adjust script for the tumblr-hosted site to work properly on mobile.
+ //regular site acts the same.
+ //the script.js mobile functions fine in local host mobile-view.
+
+
+ $(document).ready(function() {
 
   var sayings = document.getElementsByClassName('saying');
   var answers = document.getElementsByClassName('answer');
@@ -9,9 +14,8 @@ $(document).ready(function() {
   function is_touch_device() {
    return (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
   }
-  //=============================
+
   //=======NORMAL BROWSERS=======
-  //=============================
   if (!is_touch_device()) {
    console.log('not touch device');
    //hover
@@ -28,40 +32,57 @@ $(document).ready(function() {
         rotate: "-=200deg"
       }, 3000);
     });
-  //=============================
   //========TOUCH DEVICES========
-  //=============================
   } else {
-    mobileListen();
-
     console.log('is touch device');
     $('.subtitle').empty();
-    $('.subtitle').append('swipe left for words of wisdom. swipe right for answers to any question.');
-    $('.confetti').addClass('confettiMobile');
-//swipe left
+    $('.subtitle').append('swipe left for words of wisdom. <br> swipe right for answers to any question.');
+    //swipe left
     $('.mhead').on('swipeleft', function() {
-      getWisdom();
       $('.mhead').transition({
         x: -300
       }).transition({
         x: 0
       });
-      $('#one').transition({
-        rotate: "+=90deg"
-      });
-      $('#two').transition({
-        rotate: "-=90deg"
-      });
+
+      rand = Math.floor(Math.random()*3);
+      sayings[rand].load();
+        sayings[rand].play();
+    //   getWisdom();
     });
-//swipe right
+
+    //swipe right
     $('.mhead').on('swiperight', function() {
-      getAnswersMobile();
+    //   if (!$('.mhead').hasClass('invalid')) {
+      //pauseAll();
+      rand = Math.floor(Math.random()*3);
+    //   $('.waiting').removeClass('hide');
+    //   $('.mhead').addClass('invalid');
+    //   $('.waiting').transition({ scale: 1.5 })
+    //   .transition({ scale: 1 })
+    //   .transition({ scale: 1.5 })
+    //   .transition({ scale: 1 })
+    //   .transition({ scale: 1.5 })
+    //   .transition({ scale: 1 })
+    //   .transition({ scale: 1.5 })
+    //   .transition({ scale: 0
+    //   });
+      $('.mhead').transition({
+        rotate: '+=720deg'
+      }, 2000);
+      answers[rand].load();
+      answers[rand].play();
+    //   answers[rand].play();
+    //   setTimeout(function() {
+    //   }, 3000);
+    //   setTimeout(function() {
+    //     if ($('.mhead').hasClass('invalid')) {
+    //       $('.mhead').removeClass('invalid');
+    //     }
+    //   }, 7000);
+    // }
     });
   }
-
-  //=============================
-  //======GENERAL FUNCTIONS======
-  //=============================
 
   function getWisdom() {
     if (!$('.mhead').hasClass('invalid')) {
@@ -102,33 +123,18 @@ function getAnswers() {
       setTimeout(function() {
         if ($('.mhead').hasClass('invalid')) {
           $('.mhead').removeClass('invalid');
-          console.log('answer removing spinner');
         }
       }, 6000);
     }
   }
 
-  function getWisdomMobile() {
-    if (!$('.mhead').hasClass('invalid')) {
-      $('.mhead').addClass('invalid');
-      pauseAll();
-      $('.waiting').addClass('hide');
-      $('.confetti').removeClass('hide');
-      rand1 = newRand(rand1);
-      sayings[rand1].load();
-      sayings[rand1].play();
-    }
-  }
-
   function getAnswersMobile() {
   if (!$('.mhead').hasClass('invalid')) {
-    $('.mhead').addClass('invalid');
       pauseAll();
+      rand = Math.floor(Math.random()*3);
       $('.confetti').removeClass('hide');
       $('.waiting').removeClass('hide');
-      rand2 = newRand(rand2);
-      answers[rand2].load();
-      answers[rand2].play();
+      $('.mhead').addClass('invalid');
       $('.waiting').transition({ scale: 1.5 })
       .transition({ scale: 1 })
       .transition({ scale: 1.5 })
@@ -141,39 +147,17 @@ function getAnswers() {
       $('.mhead').transition({
         rotate: '+=2160deg'
       }, 3000);
+      setTimeout(function() {
+        answers[rand].play();
+        $('.waiting').addClass('hide');
+      }, 3000);
+      setTimeout(function() {
+        if ($('.mhead').hasClass('invalid')) {
+          $('.mhead').removeClass('invalid');
+        }
+      }, 7000);
     }
   }
-
-  // function getAnswersMobile() {
-  // if (!$('.mhead').hasClass('invalid')) {
-  //     pauseAll();
-  //     rand2 = newRand(rand2);
-  //     $('.confetti').removeClass('hide');
-  //     $('.waiting').removeClass('hide');
-  //     $('.mhead').addClass('invalid');
-  //     $('.waiting').transition({ scale: 1.5 })
-  //     .transition({ scale: 1 })
-  //     .transition({ scale: 1.5 })
-  //     .transition({ scale: 1 })
-  //     .transition({ scale: 1.5 })
-  //     .transition({ scale: 1 })
-  //     .transition({ scale: 1.5 })
-  //     .transition({ scale: 0
-  //     });
-  //     $('.mhead').transition({
-  //       rotate: '+=2160deg'
-  //     }, 3000);
-  //     setTimeout(function() {
-  //       answers[rand2].play();
-  //       $('.waiting').addClass('hide');
-  //     }, 3000);
-  //     setTimeout(function() {
-  //       if ($('.mhead').hasClass('invalid')) {
-  //         $('.mhead').removeClass('invalid');
-  //       }
-  //     }, 7000);
-  //   }
-  // }
 
   function audioListen() {
     $('.saying').each(function() {
@@ -185,33 +169,7 @@ function getAnswers() {
     $('.answer').each(function() {
       this.addEventListener('ended', function(){
         $('.confetti').addClass('hide');
-        console.log('listen removing spinner');
         $('.mhead').removeClass('invalid spinner');
-      });
-    });
-  }
-
-  function mobileListen() {
-    $('.saying').each(function() {
-      this.addEventListener('loadstart', function() {
-        console.log('loading');
-        $('.waiting').removeClass('hide');
-      });
-      this.addEventListener('playing', function() {
-        console.log('playing');
-        $('.waiting').addClass('hide');
-        $('.mhead').removeClass('invalid');
-      });
-    });
-    $('.answer').each(function() {
-      this.addEventListener('loadstart', function() {
-        console.log('loading');
-        $('.waiting').removeClass('hide');
-      });
-      this.addEventListener('playing', function() {
-        console.log('playing');
-        $('.waiting').addClass('hide');
-        $('.mhead').removeClass('invalid');
       });
     });
   }
@@ -235,8 +193,5 @@ function getAnswers() {
     return n;
   }
 
+
 }); //close document listener
-
-
-
-

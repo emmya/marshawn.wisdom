@@ -80,6 +80,9 @@ body {
   border-radius: 30%;
   opacity: .7;
 }
+.confettiMobile {
+  background-image: url("http://i.imgur.com/LiLCSbr.png");
+}
 #two {
 -webkit-transform:rotate(270deg);
 }
