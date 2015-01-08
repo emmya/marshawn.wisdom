@@ -2,7 +2,8 @@ $(document).ready(function() {
 
   var sayings = document.getElementsByClassName('saying');
   var answers = document.getElementsByClassName('answer');
-  var rand;
+  var rand1 = Math.floor(Math.random()*3);
+  var rand2 = Math.floor(Math.random()*3);
   audioListen();
 
   function is_touch_device() {
@@ -59,19 +60,20 @@ $(document).ready(function() {
       pauseAll();
       $('.waiting').addClass('hide');
       $('.confetti').removeClass('hide');
-      rand = Math.floor(Math.random()*3);
-      sayings[rand].load();
-      sayings[rand].play();
+      rand1 = newRand(rand1);
+      sayings[rand1].load();
+      sayings[rand1].play();
       setTimeout(function() {
+        console.log('wisdom removing spinner');
         $('.mhead').removeClass('invalid spinner');
-      }, 220);
+      }, 700);
     }
   }
 
 function getAnswers() {
   if (!$('.mhead').hasClass('invalid')) {
       pauseAll();
-      rand = Math.floor(Math.random()*3);
+      rand2 = newRand(rand2);
       $('.confetti').removeClass('hide');
       $('.waiting').removeClass('hide');
       $('.mhead').addClass('spinner invalid');
@@ -85,22 +87,23 @@ function getAnswers() {
       .transition({ scale: 0
       });
       setTimeout(function() {
-        answers[rand].load();
-        answers[rand].play();
+        answers[rand2].load();
+        answers[rand2].play();
         $('.waiting').addClass('hide');
       }, 2800);
       setTimeout(function() {
         if ($('.mhead').hasClass('invalid')) {
-          $('.mhead').removeClass('spinner invalid');
+          $('.mhead').removeClass('invalid');
+          console.log('answer removing spinner');
         }
-      }, 7000);
+      }, 6000);
     }
   }
 
   function getAnswersMobile() {
   if (!$('.mhead').hasClass('invalid')) {
       pauseAll();
-      rand = Math.floor(Math.random()*3);
+      rand2 = newRand(rand2);
       $('.confetti').removeClass('hide');
       $('.waiting').removeClass('hide');
       $('.mhead').addClass('invalid');
@@ -117,7 +120,7 @@ function getAnswers() {
         rotate: '+=2160deg'
       }, 3000);
       setTimeout(function() {
-        answers[rand].play();
+        answers[rand2].play();
         $('.waiting').addClass('hide');
       }, 3000);
       setTimeout(function() {
@@ -132,12 +135,13 @@ function getAnswers() {
     $('.saying').each(function() {
       this.addEventListener('ended', function(){
         $('.confetti').addClass('hide');
-        $('.mhead').removeClass('invalid spinner');
+        $('.mhead').removeClass('invalid');
       });
     });
     $('.answer').each(function() {
       this.addEventListener('ended', function(){
         $('.confetti').addClass('hide');
+        console.log('listen removing spinner');
         $('.mhead').removeClass('invalid spinner');
       });
     });
@@ -152,6 +156,14 @@ function getAnswers() {
       this.pause();
       this.currentTime=0;
     });
+  }
+
+  function newRand(z) {
+    var n = Math.floor(Math.random()*3);
+    if (n === z) {
+      return newRand();
+    }
+    return n;
   }
 
 }); //close document listener
