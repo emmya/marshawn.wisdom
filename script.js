@@ -60,10 +60,11 @@ $(document).ready(function() {
       $('.waiting').addClass('hide');
       $('.confetti').removeClass('hide');
       rand = Math.floor(Math.random()*3);
+      sayings[rand].load();
+      sayings[rand].play();
       setTimeout(function() {
-        sayings[rand].play();
         $('.mhead').removeClass('invalid spinner');
-      }, 200);
+      }, 220);
     }
   }
 
@@ -84,9 +85,10 @@ function getAnswers() {
       .transition({ scale: 0
       });
       setTimeout(function() {
+        answers[rand].load();
         answers[rand].play();
         $('.waiting').addClass('hide');
-      }, 3000);
+      }, 2800);
       setTimeout(function() {
         if ($('.mhead').hasClass('invalid')) {
           $('.mhead').removeClass('spinner invalid');
