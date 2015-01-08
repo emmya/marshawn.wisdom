@@ -83,3 +83,12 @@ body {
 #two {
 -webkit-transform:rotate(270deg);
 }
+
+.counter {
+  /*margin-top: 75vh;*/
+  position: absolute;
+  opacity: .5;
+  /*float: left;*/
+  font-size: 12px;
+  letter-spacing: 2px;
+}
