@@ -1,0 +1,85 @@
+body {
+  background-color: #ACB6BC;
+  font-family: 'Bangers', cursive;
+  color: #06192E;
+  text-align: center;
+}
+.title {
+  font-size: 50px;
+}
+.hide {
+  display: none;
+}
+
+.mhead {
+  background-image: url("http://i.imgur.com/EviDcg9.png");
+  background-size: contain;
+  height: 200px;
+  width: 180px;
+  margin-top: 40px;
+  position: absolute;
+  margin-left: 50%;
+  left: -90px;
+  border-radius: 30%;
+  z-index: 1;
+}
+.waiting {
+  z-index: 2;
+  position: absolute;
+  margin-left: 50%;
+  left: -80px;
+  color: white;
+  opacity: .7;
+  font-size: 40px;
+  letter-spacing: 4px;
+  margin-top: 130px;
+
+}
+.mhead:hover,
+.mhead:focus {
+  -webkit-animation-name: rockit;
+  -webkit-animation-duration: 0.4s;
+  -webkit-transform-origin:50% 50%;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+  cursor: pointer;
+}
+
+@-webkit-keyframes rockit {
+  25% { -webkit-transform:rotate(-4deg); }
+  50% { -webkit-transform:rotate(6deg); }
+  75% { -webkit-transform: rotate(-7deg); }
+  100% { -webkit-transform: rotate(0deg); }
+}
+
+.spinner {
+  -moz-transform: rotate(2160deg);
+  -webkit-transform: rotate(2160deg);
+  -o-transform: rotate(2160deg);
+  -ms-transform: rotate(2160deg);
+  transform: rotate(2160deg);
+  -webkit-transition: all 3s ease;
+  -moz-transition: all 3s ease;
+  -o-transition: all 3s ease;
+  transition: all 3s ease;
+}
+
+.invalid {
+  cursor: default !important;
+}
+
+.confetti {
+  background-image: url("http://i.imgur.com/VhmQGwe.gif");
+  height: 220px;
+  width: 230px;
+  background-size: cover;
+  position: absolute;
+  margin-top: 35px;
+  margin-left: 50%;
+  left: -110px;
+  border-radius: 30%;
+  opacity: .7;
+}
+#two {
+-webkit-transform:rotate(270deg);
+}
