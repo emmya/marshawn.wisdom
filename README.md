@@ -4,6 +4,6 @@ A simple site using embedded audio, JQuery transit, CSS3. Detects touchscreens a
 
 9 in 10 users agree this website "is a website". Give it a try.
 
-Currently hosted at [emmyarm.tumblr.com/marshawn](http://)
+Currently hosted [here](http://emmyarm.tumblr.com/marshawn)
 
 Go Hawks.
